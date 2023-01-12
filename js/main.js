@@ -8,7 +8,7 @@ const inputElement = document.querySelector("#input")
 const textExampleElement = document.querySelector("#textExample")
 
 // 
-let letterId = 10
+let letterId = 1
 
 // Создаём Функцию для каждой чтоб получить массив каждого элемента
 let getLine = (text)=>{
@@ -34,7 +34,7 @@ let getLine = (text)=>{
             line = []
         }
     }
-    // Если больше 0 то добавляем
+    // Если больше 0 тичественный рост и сфера нашей активо добавляем
     if(line.length > 0){
         lines.push(line)
         line = ''
@@ -62,10 +62,42 @@ let lineToHTML = (line)=>{
             spanElemet.classList.add("done")
         }
     }
+    return divElement
+}
+
+//
+
+let getCurrentLineNumber = ()=>{
+    for (let i = 0; i < getLines.length; i++) {
+        for (const letter of getLines[i]) {
+            if (letter.id == letterId) {
+                
+                return i
+            }
+        }
+    }
+}
+
+// 
+let updateHTML = () =>{
+    const currentLineNumber = getCurrentLineNumber();
+    textExampleElement.innerHTML = ''
+    // for (const line of getLines) {
+    //     const html = lineToHTML(line)
+    //     textExampleElement.append(html)
+    // }
+    for (let i = 0; i < getLines.length; i++) {
+        // const element = getLines[i];
+        const html = lineToHTML(getLines[i])
+        textExampleElement.append(html)
+
+        if (i < currentLineNumber || i > currentLineNumber +2) {
+            html.classList.add("hidden")
+        }
+    }
 }
 
 // 
 const getLines = getLine(text)
 lineToHTML(getLines[0])
-
-console.log(getLines)
+updateHTML()
