@@ -43,6 +43,7 @@ let getLine = (text)=>{
     return lines
 }
 
+//HTML строка для обрамление элемента
 let lineToHTML = (line)=>{
     // <div class="line line-1">
     //     <span class="done"> На переднем плане, прямо перед</span> 
@@ -65,8 +66,7 @@ let lineToHTML = (line)=>{
     return divElement
 }
 
-//
-
+//Получение номер данной строки
 let getCurrentLineNumber = ()=>{
     for (let i = 0; i < getLines.length; i++) {
         for (const letter of getLines[i]) {
@@ -78,7 +78,7 @@ let getCurrentLineNumber = ()=>{
     }
 }
 
-// 
+// Обнавляем страницу
 let updateHTML = () =>{
     const currentLineNumber = getCurrentLineNumber();
     textExampleElement.innerHTML = ''
@@ -97,7 +97,25 @@ let updateHTML = () =>{
     }
 }
 
-// 
+//Получение данные из строки
+let getCurrentLetter = ()=>{
+    for (const line of getLines) {
+        for (const letter of line) {
+            if(letterId === letter.id){
+                return letter
+            }
+        }
+    }
+}
+
+inputElement.addEventListener("keydown", function(e){
+    const currentLetter = getCurrentLetter()
+    if(e.key == currentLetter.label){
+        letterId += 1
+        updateHTML()
+    }
+})
+// Вызов функций
 const getLines = getLine(text)
 lineToHTML(getLines[0])
 updateHTML()
