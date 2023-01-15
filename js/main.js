@@ -108,27 +108,40 @@ let getCurrentLetter = ()=>{
     }
 }
 
-inputElement.addEventListener("keydown", function(e){
-    let eventKeyElement = document.querySelector(`[data-key="${e.key}"]`)
-
-    if(eventKeyElement){
-        eventKeyElement.classList.add("hint")
-    }
+let init = ()=>{
+    updateHTML()
+    inputElement.addEventListener("keydown", function(e){
+        let eventKeyElement = document.querySelector(`[data-key="${e.key}"]`)
+        const currentLetter = getCurrentLetter()
+        // const currentLineNumber = getCurrentLetter()
     
-    const currentLetter = getCurrentLetter()
-    if(e.key == currentLetter.label){
-        letterId += 1
-        updateHTML()
-    }
-})
+        if(eventKeyElement){
+            eventKeyElement.classList.add("hint")
+        }
+        
+        if(e.key == currentLetter.label){
+            letterId += 1
+            updateHTML()
+        }else{
+            e.preventDefault()
+        }
+    
+        // if(currentLineNumber !== getCurrentLineNumber()){
+        //     inputElement.value = ""
+        //     e.preventDefault()
+        // } 
+    })
+    
+    inputElement.addEventListener("keyup", function(e){
+        let eventKeyElement = document.querySelector(`[data-key="${e.key}"]`)
+        if(eventKeyElement){
+            eventKeyElement.classList.remove("hint")
+        }
+    })
+}
 
-inputElement.addEventListener("keyup", function(e){
-    let eventKeyElement = document.querySelector(`[data-key="${e.key}"]`)
-    if(eventKeyElement){
-        eventKeyElement.classList.remove("hint")
-    }
-})
+
 // Вызов функций
 const getLines = getLine(text)
 lineToHTML(getLines[0])
-updateHTML()
+init()
