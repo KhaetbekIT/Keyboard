@@ -109,10 +109,24 @@ let getCurrentLetter = ()=>{
 }
 
 inputElement.addEventListener("keydown", function(e){
+    let eventKeyElement = document.querySelector(`[data-key="${e.key}"]`)
+
+    if(eventKeyElement){
+        eventKeyElement.classList.add("hint")
+    }
+
+    console.log(e)
     const currentLetter = getCurrentLetter()
     if(e.key == currentLetter.label){
         letterId += 1
         updateHTML()
+    }
+})
+
+inputElement.addEventListener("keyup", function(e){
+    let eventKeyElement = document.querySelector(`[data-key="${e.key}"]`)
+    if(eventKeyElement){
+        eventKeyElement.classList.remove("hint")
     }
 })
 // Вызов функций
