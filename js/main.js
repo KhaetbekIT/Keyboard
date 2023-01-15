@@ -122,8 +122,6 @@ let init = ()=>{
         if(e.key == currentLetter.label){
             letterId += 1
             updateHTML()
-        }else{
-            e.preventDefault()
         }
     
         // if(currentLineNumber !== getCurrentLineNumber()){
