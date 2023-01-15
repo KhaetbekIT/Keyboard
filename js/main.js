@@ -114,8 +114,7 @@ inputElement.addEventListener("keydown", function(e){
     if(eventKeyElement){
         eventKeyElement.classList.add("hint")
     }
-
-    console.log(e)
+    
     const currentLetter = getCurrentLetter()
     if(e.key == currentLetter.label){
         letterId += 1
