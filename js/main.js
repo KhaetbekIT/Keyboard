@@ -62,6 +62,9 @@ let lineToHTML = (line)=>{
             // console.log(letter.id, letter.label)
             spanElemet.classList.add("done")
         }
+        else if(!letter.success){
+            spanElemet.classList.add("hint")
+        }
     }
     return divElement
 }
@@ -114,13 +117,28 @@ let init = ()=>{
         let eventKeyElement = document.querySelector(`[data-key="${e.key}"]`)
         const currentLetter = getCurrentLetter()
         // const currentLineNumber = getCurrentLetter()
+        const isEnter = e.key === currentLetter.label
+
+        if(isEnter){
+            letterId += 1
+            updateHTML()
+        }else{
+            for (const line of getLines) {
+                for (const letter of line) {
+                    if(letter.label === currentLetter.label){
+                        letter.success = false
+                    }
+                }
+            }
+            updateHTML()
+        }
     
         if(eventKeyElement){
             eventKeyElement.classList.add("hint")
         }
         
         if(e.key == currentLetter.label){
-            letterId += 1
+            
             updateHTML()
         }
     
